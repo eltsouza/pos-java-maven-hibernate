@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import javax.transaction.Transaction;
 
 import posjavamavenhibernate.HibernateUtil;
 
@@ -46,12 +45,15 @@ public class DaoGeneric<E> {
 		return e;
 	}
 	public E pesquisar(Long id, Class<E> entidade) {
+		entityManager.clear();
 		E e = (E) entityManager.find(entidade, id);
+		//E e = (E) entityManager.createQuery("from " + entidade.getSimpleName() + " where id = " + id).getSingleResult();
 		return e;
 	}
-	public void deletarPorId(E entidade) {
+	public void deletarPorId(E entidade) throws Exception{
 		Object id = HibernateUtil.getPrimaryKey(entidade);
 		EntityTransaction transaction = entityManager.getTransaction();
+		
 		transaction.begin();
 		entityManager.createNativeQuery("delete from " + entidade.getClass().getSimpleName().toLowerCase() + " where id = " + id).executeUpdate(); //faz o delete do registro
 	    transaction.commit();

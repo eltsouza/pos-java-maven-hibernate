@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>Página PrimeFaces</title>
+	</h:head>
+	
+	<h:body>
+		<h1>INDEX PRIMEFACES</h1>
+		<h:link value="Página jsf" outcome="index.jsf"/><br />
+		<h:link value="Página primefaces" outcome="primefaces.jsf"/>		
+		<br /><br />
+		
+		<h:form id="formulario">
+			<p:growl autoUpdate="true" showDetail="true"/>
+			<br /><br />
+			<h:panelGrid columns="4">
+				<p:outputLabel>ID:</p:outputLabel>
+				<p:inputText readonly="true" value="#{usuarioPessoaManagedBean.usuarioPessoa.id}" />
+			
+				<p:outputLabel>Nome:</p:outputLabel>
+				<p:inputText value="#{usuarioPessoaManagedBean.usuarioPessoa.nome}" required="true" requiredMessage="Informe o nome!"
+				id="nomeUsuario">
+					<p:watermark value="Informe o nome da pessoa..." for="nomeUsuario"/>
+				</p:inputText>
+			
+				<p:outputLabel>Sobrenome:</p:outputLabel>
+				<p:inputText value="#{usuarioPessoaManagedBean.usuarioPessoa.sobrenome}" required="true" requiredMessage="Informe o sobrenome!"/>		
+			
+				<p:outputLabel>Idade:</p:outputLabel>
+				<p:inputText value="#{usuarioPessoaManagedBean.usuarioPessoa.idade}" />
+				
+				<p:outputLabel>Login:</p:outputLabel>
+				<p:inputText value="#{usuarioPessoaManagedBean.usuarioPessoa.login}" />
+			
+				<p:outputLabel>Senha:</p:outputLabel>
+				<p:password value="#{usuarioPessoaManagedBean.usuarioPessoa.senha}" />
+				
+			</h:panelGrid>		
+			
+			<br /><br />
+			
+			<h:commandButton value="Salvar" ajax="false" action="#{usuarioPessoaManagedBean.salvar}" />
+			
+			<h:commandButton value="Novo" action="#{usuarioPessoaManagedBean.novo}" immediate="true" />
+			
+			<br /><br />
+		</h:form>
+		
+		<h:form id="formTable">		
+			<p:dataTable value="#{usuarioPessoaManagedBean.list}" var="user" 
+				rows="5" paginator="true" lazy="true" paginatorPosition="bottom"
+				paginatorTemplate="{FirstPageLink} {PageLinks} {LastPageLink}">
+			
+				<p:column headerText="ID" width="20">
+					<h:outputText value="#{user.id}"/>
+				</p:column>
+				
+				<p:column headerText="Nome">
+					<h:outputText value="#{user.nome}"/>
+				</p:column>
+				
+				<p:column headerText="Sobrenome">
+					<h:outputText value="#{user.sobrenome}"/>
+				</p:column>
+				
+				<p:column headerText="Idade">
+					<h:outputText value="#{user.idade}"/>
+				</p:column>
+				
+				<p:column headerText="Login">
+					<h:outputText value="#{user.login}"/>
+				</p:column>
+				
+				<p:column headerText="Editar">
+					<center>
+						<h:commandLink id="btnEditar" action="#{usuarioPessoaManagedBean.editar}">
+							<f:setPropertyActionListener value="#{user}" target="#{usuarioPessoaManagedBean.usuarioPessoa}" />
+							<f:ajax execute="btnEditar" render=":formulario" />	
+							<h:graphicImage url="resources/img/edit.png"/>					
+						</h:commandLink>
+					</center>
+				</p:column>
+				
+				<p:column headerText="Remover">
+					<center>
+						<h:commandLink action="#{usuarioPessoaManagedBean.remover}" id="btnRemover">
+							<f:setPropertyActionListener value="#{user}" target="#{usuarioPessoaManagedBean.usuarioPessoa}" />
+							<f:ajax execute="btnRemover"/>
+							<h:graphicImage url="resources/img/remove.png" />	
+						</h:commandLink>
+					</center>
+				</p:column>			
+				
+			</p:dataTable>		
+
+		</h:form>
+	</h:body>
+</html>

@@ -6,7 +6,7 @@ import javax.persistence.Persistence;
 
 public class HibernateUtil {
 
-	//metodo static pois o projeto só pode ler o arquivo de autenticaçã
+	//metodo static pois o projeto só pode ler o arquivo de autenticação
 	//persistence.xml 1 vez.
 	public static EntityManagerFactory factory = null;
 	
