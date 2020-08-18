@@ -36,7 +36,9 @@ public class UsuarioPessoaManagedBean {
 	public void setUsuarioPessoa(UsuarioPessoa usuarioPessoa) {
 		this.usuarioPessoa = usuarioPessoa;
 	}
-	
+	public UsuarioPessoa getUsuarioPessoa() {
+		return usuarioPessoa;
+	}
 	@PostConstruct
 	public void init() {
 		list = daoGeneric.listar(UsuarioPessoa.class);
